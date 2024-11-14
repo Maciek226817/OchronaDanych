@@ -15,14 +15,13 @@ def Szyfr_Cezara(text, key, mode='encrypt'):
 
     return ''.join(result)
 
-# Przykład jak to działa
-text_to_encrypt = "MaciejSobiecki"
-key = 8
+text = input("Podaj tekst do zaszyfrowania lub odszyfrowania: ")
+key = int(input("Podaj klucz (liczbę całkowitą): "))
+mode = input("Wybierz tryb (encrypt/decrypt): ").strip().lower()
 
-# Szyfrowanie
-encrypted_text = Szyfr_Cezara(text_to_encrypt, key, mode='encrypt')
-print(f"Zaszyfrowany tekst: {encrypted_text}")
+if mode not in ['encrypt', 'decrypt']:
+    print("Nieprawidłowy tryb. Wybierz 'encrypt' lub 'decrypt'.")
+else:
+    result_text = Szyfr_Cezara(text, key, mode)
+    print(f"Wynik: {result_text}")
 
-# Odszyfrowanie
-decrypted_text = Szyfr_Cezara(encrypted_text, key, mode='decrypt')
-print(f"Odszyfrowany tekst: {decrypted_text}")

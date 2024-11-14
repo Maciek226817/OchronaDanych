@@ -46,12 +46,19 @@ def deszyfruj_vigenere(text, key):
     return ''.join(decrypted_text)
 
 
-# Przykład
-plaintext = "MaciejSobiecki"
-key = "KEY"
-# Szyfrowanie
-encrypted_text = szyfruj_vigenere(plaintext, key)
-print(f"Encrypted text: {encrypted_text}")
-# Deszyfrowanie
-decrypted_text = deszyfruj_vigenere(encrypted_text, key)
-print(f"Decrypted text: {decrypted_text}")
+
+text = input("Podaj tekst do zaszyfrowania lub odszyfrowania: ")
+key = input("Podaj klucz szyfrowania: ")
+mode = input("Wybierz tryb (encrypt/decrypt): ").strip().lower()
+
+
+if mode not in ['encrypt', 'decrypt']:
+    print("Nieprawidłowy tryb. Wybierz 'encrypt' lub 'decrypt'.")
+else:
+    if mode == 'encrypt':
+        encrypted_text = szyfruj_vigenere(text, key)
+        print(f"Zaszyfrowany tekst: {encrypted_text}")
+    else:
+        decrypted_text = deszyfruj_vigenere(text, key)
+        print(f"Odszyfrowany tekst: {decrypted_text}")
+

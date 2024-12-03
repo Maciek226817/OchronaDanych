@@ -24,18 +24,14 @@ S1 = [
 Key1 = []
 Key2 = []
 
-
 def permute(input_bits, table):
     return [input_bits[i - 1] for i in table]
-
 
 def left_shift(bits, shifts):
     return np.roll(bits, -shifts).tolist()
 
-
 def xor(a, b):
     return [x ^ y for x, y in zip(a, b)]
-
 
 def sbox(input_bits, sbox):
     row = int(f"{input_bits[0]}{input_bits[3]}", 2)
@@ -43,14 +39,11 @@ def sbox(input_bits, sbox):
     value = sbox[row][col]
     return [value // 2, value % 2]
 
-
 def combine(left, right):
     return left + right
 
-
 def swap(input_bits):
     return input_bits[4:] + input_bits[:4]
-
 
 def fk(input_bits, subkey):
     left = input_bits[:4]
@@ -63,7 +56,6 @@ def fk(input_bits, subkey):
     permuted = permute(sbox_result, P4)
 
     return combine(xor(left, permuted), right)
-
 
 def generate_keys(key):
     global Key1, Key2
@@ -79,14 +71,12 @@ def generate_keys(key):
 
     Key2 = permute(combine(left, right), P8)
 
-
 def encrypt(plaintext):
     permuted = permute(plaintext, IP)
     fk1_result = fk(permuted, Key1)
     swapped = swap(fk1_result)
     fk2_result = fk(swapped, Key2)
     return permute(fk2_result, IPInverse)
-
 
 def decrypt(ciphertext):
     permuted = permute(ciphertext, IP)
@@ -95,18 +85,23 @@ def decrypt(ciphertext):
     fk1_result = fk(swapped, Key1)
     return permute(fk1_result, IPInverse)
 
-
 if __name__ == "__main__":
-    key = [1,1,1,1,1,0,0,0,0,0]
-    plaintext = [0,0,0,0,0,0,0,0]
+    key_input = input("Podaj klucz (10 bitów): ")
+    plaintext_input = input("Podaj tekst jawny (8 bitów): ")
 
-    generate_keys(key)
+    key = [int(bit) for bit in key_input.strip()]
+    plaintext = [int(bit) for bit in plaintext_input.strip()]
 
-    print("Klucz 1:", "".join(map(str, Key1)))
-    print("Klucz 2:", "".join(map(str, Key2)))
+    if len(key) != 10 or len(plaintext) != 8:
+        print("Błąd: Klucz musi mieć 10 bitów, a tekst jawny 8 bitów.")
+    else:
+        generate_keys(key)
 
-    ciphertext = encrypt(plaintext)
-    print("Zaszyfrowany tekst:", "".join(map(str, ciphertext)))
+        print("Klucz 1:", "".join(map(str, Key1)))
+        print("Klucz 2:", "".join(map(str, Key2)))
 
-    decrypted = decrypt(ciphertext)
-    print("Odszyfrowany tekst:", "".join(map(str, decrypted)))
+        ciphertext = encrypt(plaintext)
+        print("Zaszyfrowany tekst:", "".join(map(str, ciphertext)))
+
+        decrypted = decrypt(ciphertext)
+        print("Odszyfrowany tekst:", "".join(map(str, decrypted)))

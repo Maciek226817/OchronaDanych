@@ -35,11 +35,9 @@ if __name__ == "__main__":
 # WYJAŚNIENIE
 
 
-# Wynik będzie się różnił za każdym razem, ponieważ program generuje losowe liczby, ale z większą liczbą iteracji wynik będzie coraz bardziej zbliżony do rzeczywistej wartości pi
-
-# def gcd(a, b): Ta funkcja oblicza największy wspólny dzielnik dwóch liczb a i b za pomocą algorytmu Euklidesa
-# Funkcja Main:
-# generuje 1000000 par liczb losowych w zakresie od 1 do 10000
-# dla kazdej pary liczba sprawdza czy są względnie pierwsze NWD = 1
-# na końcu oblicza przyblizenie liczby pi na podstawie wzoru
-# Na koniec są wyświetlane wyniki
+# Wartość π jest bliska rzeczywistej wartości 3.1415... Im więcej iteracji tym przybliżenie jest dokładniejsze
+# Teoria Cesaro opiera się na analizie liczby par liczb całkowitych, które są wzajemnie pierwsze. Prawdopodobieństwo to jest związane z wartością π,
+# które można zaobserwować, w miarę jak liczba iteracji rośnie, przybliżenie staje się coraz bardziej dokładne, ponieważ rozkład liczb wzajemnie pierwszych wśród liczb całkowitych
+# jest ściśle powiązany z funkcją związaną z liczbą π.
+# W kodzie użyto generatora liczb pseudolosowych random.randint(). Nie jest on odpowiedni do zastosowań kryptograficznych.
+# W przypadku wymagań kryptograficznych należy zastosować bezpieczny generator liczb losowych, np. moduł secrets dostępny w bibliotece standardowej Pythona.
